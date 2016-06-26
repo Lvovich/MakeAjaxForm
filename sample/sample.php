@@ -34,7 +34,7 @@
     </label>
     <br /><br />
     <label>input type="file" accept="*" name="file"<br/>
-        <input type="file" accept="*" name="flow_source" />
+        <input type="file" accept="*" name="file" />
     </label>
     <br /><br />
     <input class="sender" type="submit" value="SEND ALL OF IT" />

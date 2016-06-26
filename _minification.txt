@@ -1,0 +1,12 @@
+install:
+    download zip from http://dl.google.com/closure-compiler/compiler-latest.zip
+    extract compiler.jar
+Use:
+    java -jar compiler.jar --charset UTF-8 --js source_code/maf.js --js source_code/maf_proto_actions.js --js source_code/maf_proto_getCollectedData.js --js source_code/maf_proto_onBeforeExchange.js --js source_code/maf_proto_getExchangeData.js --js_output_file min/maf.min.js --compilation_level ADVANCED_OPTIMIZATIONS
+
+
+gulp (only concatenation to one file, for dev debugging):
+install:
+    npm install --save-dev gulp gulp-concat
+Use:
+    gulp

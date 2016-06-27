@@ -29,7 +29,7 @@ Features:
 
 Requirements:
 -------------
-nothing unusual
+any web-browser with javascript support
 
 Supports user-defined functions:
 --------------------------------

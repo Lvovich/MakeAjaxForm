@@ -13,7 +13,7 @@ and data structure.
 Supports next input types:
 ```
   input type="text || radio || checkbox || password || hidden || file" (and all other that can be represented
-    by a pair 'key=value');
+    by a pair 'name=value');
   select (& with 'multiple' attribute);
   textarea;
 ```

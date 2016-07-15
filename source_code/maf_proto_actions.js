@@ -42,7 +42,7 @@ window['MakeAjaxForm'].prototype.actions.dataItem = function(name, value, fileDa
  * @returns {{valid: Array, data: Array}}
  */
 window['MakeAjaxForm'].prototype.actions['input'] = function(el) {
-    var data =[], valid = [];
+    var data = [], valid = [];
 
     if (!el.value) {
         if (el.hasAttribute('required')) {

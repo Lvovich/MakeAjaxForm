@@ -2,6 +2,11 @@
 
 window['MakeAjaxForm'] = function(opts)
 {
+    if (typeof this !== 'object' || this === window) {
+        console.error('makeAjaxForm: incorrect call without "new". Plugin Off!');
+        return {};
+    }
+
     (function prepareParams() {
         opts['container'] = ('' + opts['container']) || '.eff422e211a0627cfeb1dcc88e75b314146';
         opts['submit'] =    ('' + opts['submit'])    || '.eff422e211a0627cfeb1dcc88e75b314146';
@@ -21,52 +26,55 @@ window['MakeAjaxForm'] = function(opts)
         }
     })();
 
-    this.container     = document.querySelector(opts['container']);
-    this.submitElement = document.querySelector(opts['submit']);
-
-    if (!this.container || !this.submitElement) {
-        console.error('makeAjaxForm: parameters "container" or "submit" is invalid. Plugin Off!');
-        return false;
-    }
-
-    var CONTEXT = this; // сохраняем контекст объекта в замыкании. Только так он будет доступен в следующей функции
-    
-    /** ----------------------------------------------------------------------------------------------------------------
-     * main control function
+    /**
+     * to exclude dangerous use of the this object wrap it
      */
-    this.submitElement.addEventListener('click', function() {
+    return (function (_this) {
+        _this.container     = document.querySelector(opts['container']);
+        _this.submitElement = document.querySelector(opts['submit']);
 
-        var xhr = new XMLHttpRequest(),
-            parsedData = CONTEXT.getCollectedData(CONTEXT),
-            checkResult = CONTEXT.onBeforeExchange(parsedData, opts);
-        
-        if (checkResult === false) return false;
-
-        var ajaxTimeout = setTimeout(function() {
-            xhr.abort();
-            opts['onExchangeError']('No server response for a long times. Exchange aborted. Try to reload the page.');
-        }, 30000);
-
-        xhr.open('post', opts['target'], true);
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-                clearTimeout(ajaxTimeout);
-
-                if (xhr.status == 200)
-                    opts['onExchangeSuccess'](xhr.responseText);
-                else
-                    opts['onExchangeError'](xhr.status + ': ' + xhr.statusText);
-            }
-        };
-
-        var exchangeData = CONTEXT.getExchangeData(parsedData, checkResult.formData, opts);
-
-        if (exchangeData.boundary.length) {
-            xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + exchangeData.boundary);
+        if (!_this.container || !_this.submitElement) {
+            console.error('makeAjaxForm: parameters "container" or "submit" is invalid. Plugin Off!');
+            return {};
         }
 
-        xhr.send(exchangeData.data);
-        
-    });
+        /**
+         * main cotrol function
+         */
+        _this.submitElement.addEventListener('click', function() {
+
+            var xhr = new XMLHttpRequest(),
+                parsedData = _this.getCollectedData(_this),
+                checkResult = _this.onBeforeExchange(parsedData, opts);
+
+            if (checkResult === false) return false;
+
+            var ajaxTimeout = setTimeout(function() {
+                xhr.abort();
+                opts['onExchangeError']('No server response for a long times. Exchange aborted. Try to reload the page.');
+            }, 30000);
+
+            xhr.open('post', opts['target'], true);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    clearTimeout(ajaxTimeout);
+
+                    if (xhr.status == 200)
+                        opts['onExchangeSuccess'](xhr.responseText);
+                    else
+                        opts['onExchangeError'](xhr.status + ': ' + xhr.statusText);
+                }
+            };
+
+            var exchangeData = _this.getExchangeData(parsedData, checkResult.formData, opts);
+
+            if (exchangeData.boundary.length) {
+                xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + exchangeData.boundary);
+            }
+
+            xhr.send(exchangeData.data);
+
+        });
+    })(this);
 };

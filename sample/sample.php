@@ -44,7 +44,7 @@
     Response result here...
 </div>
 
-<script src="min/maf.min.js"></script>
+<script src="release/maf.min.js"></script>
 <script>
     window.addEventListener('load', function() {
         new MakeAjaxForm({

@@ -14,8 +14,8 @@ window['MakeAjaxForm'].prototype.onBeforeExchange = function(parsedData, opts)
         return false;
     }
 
-    if (parsedData.validationErrors.length > 0) {
-        parsedData.validationErrors.forEach(function(err) {
+    if (parsedData['validationErrors'].length > 0) {
+        parsedData['validationErrors'].forEach(function(err) {
             opts['onValidationError'](err);
         });
         return false;

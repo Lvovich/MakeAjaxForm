@@ -1,7 +1,8 @@
 "use strict";
 
 /**
- * 
+ *
+ * @param CONTEXT
  * @returns {{data: Array, validationErrors: Array}}
  */
 window['MakeAjaxForm'].prototype.getCollectedData = function(CONTEXT)
@@ -28,5 +29,5 @@ window['MakeAjaxForm'].prototype.getCollectedData = function(CONTEXT)
         }
     });
 
-    return {data: arrData, validationErrors: validationErrors};
+    return {'data': arrData, 'validationErrors': validationErrors};
 };

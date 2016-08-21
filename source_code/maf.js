@@ -1,5 +1,3 @@
-"use strict";
-
 window['MakeAjaxForm'] = function(opts)
 {
     if (typeof this !== 'object' || this === window) {
@@ -29,7 +27,7 @@ window['MakeAjaxForm'] = function(opts)
     /**
      * to exclude dangerous use of the this object wrap it
      */
-    return (function (_this) {
+    return (function (_func, _this) {
         _this.container     = document.querySelector(opts['container']);
         _this.submitElement = document.querySelector(opts['submit']);
 
@@ -44,8 +42,8 @@ window['MakeAjaxForm'] = function(opts)
         _this.submitElement.addEventListener('click', function() {
 
             var xhr = new XMLHttpRequest(),
-                parsedData = _this.getCollectedData(_this),
-                checkResult = _this.onBeforeExchange(parsedData, opts);
+                parsedData = _func.getCollectedData(_this),
+                checkResult = _func.onBeforeExchange(parsedData, opts);
 
             if (checkResult === false) return false;
 
@@ -67,7 +65,7 @@ window['MakeAjaxForm'] = function(opts)
                 }
             };
 
-            var exchangeData = _this.getExchangeData(parsedData, checkResult.formData, opts);
+            var exchangeData = _func.getExchangeData(parsedData, checkResult.formData, opts);
 
             if (exchangeData.boundary.length) {
                 xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + exchangeData.boundary);
@@ -76,5 +74,5 @@ window['MakeAjaxForm'] = function(opts)
             xhr.send(exchangeData.data);
 
         });
-    })(this);
+    })(window['MakeAjaxForm'], this);
 };

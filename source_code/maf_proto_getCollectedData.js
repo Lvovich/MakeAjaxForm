@@ -1,33 +1,32 @@
-"use strict";
+(function (_func) {
+    /**
+     *
+     * @returns {{data: Array, validationErrors: Array}}
+     */
+    _func.getCollectedData = function(_this)
+    {
+        var arrData = [],
+            validationErrors = [];
 
-/**
- *
- * @param CONTEXT
- * @returns {{data: Array, validationErrors: Array}}
- */
-window['MakeAjaxForm'].prototype.getCollectedData = function(CONTEXT)
-{
-    var arrData = [],
-        validationErrors = [];
+        var INPUT_TYPES = ['input', 'select', 'textarea'];
 
-    var INPUT_TYPES = ['input', 'select', 'textarea'];
+        INPUT_TYPES.forEach(function(type) {
+            if (!(type in _func.actions)) return;
 
-    INPUT_TYPES.forEach(function(type) {
-        if (!(type in CONTEXT.actions)) return;
+            var dataSet = _this.container.querySelectorAll(type);
 
-        var dataSet = CONTEXT.container.querySelectorAll(type);
+            for (var i=0, l=dataSet.length; i<l; i++) {
+                var element = dataSet[i];
 
-        for (var i=0, l=dataSet.length; i<l; i++) {
-            var element = dataSet[i];
+                if (element !== _this.submitElement && element.name) {
+                    var elementResult = _func.actions[type](element);
 
-            if (element !== CONTEXT.submitElement && element.name) {
-                var elementResult = CONTEXT.actions[type](element);
-
-                arrData = arrData.concat(elementResult.data);
-                validationErrors = validationErrors.concat(elementResult.valid);
+                    arrData = arrData.concat(elementResult.data);
+                    validationErrors = validationErrors.concat(elementResult.valid);
+                }
             }
-        }
-    });
+        });
 
-    return {'data': arrData, 'validationErrors': validationErrors};
-};
+        return {'data': arrData, 'validationErrors': validationErrors};
+    };
+})(window['MakeAjaxForm']);

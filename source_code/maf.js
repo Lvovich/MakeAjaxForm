@@ -5,42 +5,35 @@ window['MakeAjaxForm'] = function(opts)
         return {};
     }
 
-    (function prepareParams() {
-        opts['container'] = ('' + opts['container']) || '.eff422e211a0627cfeb1dcc88e75b314146';
-        opts['submit'] =    ('' + opts['submit'])    || '.eff422e211a0627cfeb1dcc88e75b314146';
-        opts['target'] =    ('' + opts['target'])    || '/';
+    // Prepare params
+    opts['target'] = ('' + opts['target']) || '/';
 
-        if (typeof opts['onBeforeExchange'] !== 'function') {
-            opts['onBeforeExchange'] = function() {};
-        }
-        if (typeof opts['onExchangeSuccess'] !== 'function') {
-            opts['onExchangeSuccess'] = function() { console.warn('makeAjaxForm: parameter "onExchangeSuccess" is not a function') };
-        }
-        if (typeof opts['onExchangeError'] !== 'function') {
-            opts['onExchangeError'] = function() { console.warn('makeAjaxForm: parameter "onExchangeError" is not a function') };
-        }
-        if (typeof opts['onValidationError'] !== 'function') {
-            opts['onValidationError'] = function() { console.warn('makeAjaxForm: parameter "onValidationError" is not a function') };
-        }
-    })();
+    if (!opts['container'] || !opts['submit']) {
+        console.error('makeAjaxForm: parameters "container" or "submit" is invalid. Plugin Off!');
+        return {};
+    }
+    if (typeof opts['onBeforeExchange'] !== 'function') {
+        opts['onBeforeExchange'] = function() {};
+    }
+    if (typeof opts['onExchangeSuccess'] !== 'function') {
+        opts['onExchangeSuccess'] = function() { console.warn('makeAjaxForm: parameter "onExchangeSuccess" is not a function') };
+    }
+    if (typeof opts['onExchangeError'] !== 'function') {
+        opts['onExchangeError'] = function() { console.warn('makeAjaxForm: parameter "onExchangeError" is not a function') };
+    }
+    if (typeof opts['onValidationError'] !== 'function') {
+        opts['onValidationError'] = function() { console.warn('makeAjaxForm: parameter "onValidationError" is not a function') };
+    }
 
-    /**
-     * to exclude dangerous use of the this object wrap it
-     */
-    return (function (_func, _this) {
-        _this.container     = document.querySelector(opts['container']);
-        _this.submitElement = document.querySelector(opts['submit']);
-
-        if (!_this.container || !_this.submitElement) {
-            console.error('makeAjaxForm: parameters "container" or "submit" is invalid. Plugin Off!');
-            return {};
-        }
+    // all right, go
+    return (function (_this, _func) {
+        _this.container     = opts['container'];
+        _this.submitElement = opts['submit'];
 
         /**
          * main cotrol function
          */
         _this.submitElement.addEventListener('click', function() {
-
             var xhr = new XMLHttpRequest(),
                 parsedData = _func.getCollectedData(_this),
                 checkResult = _func.onBeforeExchange(parsedData, opts);
@@ -72,7 +65,6 @@ window['MakeAjaxForm'] = function(opts)
             }
 
             xhr.send(exchangeData.data);
-
         });
-    })(window['MakeAjaxForm'], this);
+    })(this, window['MakeAjaxForm']);
 };

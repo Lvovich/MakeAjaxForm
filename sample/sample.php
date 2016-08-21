@@ -46,13 +46,16 @@
 
 <script src="release/maf.min.js"></script>
 <script>
+    var container = document.querySelector('.my-form');
+    var submit    = document.querySelector('.sender');
+
     window.addEventListener('load', function() {
         new MakeAjaxForm({
-            container: '.my-form',
-            submit: '.sender',
+            container: container,
+            submit: submit,
             target: 'sample/ajax_handler.php',
 
-            onBeforeExchange: function(coolectedData) {
+            onBeforeExchange: function(collectedData) {
                 var block = document.querySelector('.result-view') || document.createElement('div');
 
                 block.innerHTML = 'Response result here...';

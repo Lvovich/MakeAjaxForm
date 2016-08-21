@@ -1,7 +1,8 @@
 /**
- * Author: Lvovich
+ * version 3.0
  *
- * open-source repo: https://github.com/Lvovich/MakeAjaxForm
+ * Author: Lvovich
+ * open-source: https://github.com/Lvovich/MakeAjaxForm
  *
  * Free code.
  */

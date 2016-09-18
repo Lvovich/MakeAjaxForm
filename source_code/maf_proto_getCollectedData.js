@@ -1,32 +1,33 @@
-(function (_func) {
+(function (_proto) {
     /**
-     *
      * @returns {{data: Array, validationErrors: Array}}
      */
-    _func.getCollectedData = function(_this)
+    _proto.getCollectedData = function()
     {
         var arrData = [],
             validationErrors = [];
 
         var INPUT_TYPES = ['input', 'select', 'textarea'];
 
-        INPUT_TYPES.forEach(function(type) {
-            if (!(type in _func.actions)) return;
+        (function ($CONT) {
+            INPUT_TYPES.forEach(function(type) {
+                if (!(type in $CONT.actions)) return;
 
-            var dataSet = _this.container.querySelectorAll(type);
+                var dataSet = $CONT.container.querySelectorAll(type);
 
-            for (var i=0, l=dataSet.length; i<l; i++) {
-                var element = dataSet[i];
+                for (var i=0, l=dataSet.length; i<l; i++) {
+                    var element = dataSet[i];
 
-                if (element !== _this.submitElement && element.name) {
-                    var elementResult = _func.actions[type](element);
+                    if (element !== $CONT.submitElement && element.name) {
+                        var elementResult = $CONT.actions[type](element);
 
-                    arrData = arrData.concat(elementResult.data);
-                    validationErrors = validationErrors.concat(elementResult.valid);
+                        arrData = arrData.concat(elementResult.data);
+                        validationErrors = validationErrors.concat(elementResult.valid);
+                    }
                 }
-            }
-        });
+            });
+        })(this);
 
         return {'data': arrData, 'validationErrors': validationErrors};
     };
-})(window['MakeAjaxForm']);
+})(window['MakeAjaxForm'].prototype);

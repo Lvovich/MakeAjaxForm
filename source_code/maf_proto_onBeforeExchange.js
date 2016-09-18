@@ -1,11 +1,11 @@
-(function (_func) {
+(function (_proto) {
     /**
      * Check some errors. Return data object or false
      * @param {Object} parsedData
      * @param {Object} opts
      * @returns {boolean|Object}
      */
-    _func.onBeforeExchange = function(parsedData, opts)
+    _proto.onBeforeExchange = function(parsedData, opts)
     {
         var res = Object.create(null);
 
@@ -29,4 +29,4 @@
 
         return res;
     };
-})(window['MakeAjaxForm']);
+})(window['MakeAjaxForm'].prototype);

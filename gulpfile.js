@@ -26,7 +26,7 @@ gulp.task('google_min', function () {
             warning_level: 'VERBOSE',
             language_in: 'ECMASCRIPT5_STRICT',
             language_out: 'ECMASCRIPT5_STRICT',
-            output_wrapper: '(function(){%output%})();',
+            output_wrapper: '%output%',
             js_output_file: 'maf.min.js'
         }))
         .pipe(gulp.dest('min/'));

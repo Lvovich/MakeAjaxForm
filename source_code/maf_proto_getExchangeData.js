@@ -1,4 +1,4 @@
-(function (_func) {
+(function (_proto) {
     /**
      * Creates request body, depending on FormData is available in window
      * @param {Object} parsedData
@@ -6,7 +6,7 @@
      * @param {Object} opts
      * @returns {Object}
      */
-    _func.getExchangeData = function(parsedData, formData, opts)
+    _proto.getExchangeData = function(parsedData, formData, opts)
     {
         var res = Object.create(null);
 
@@ -39,4 +39,4 @@
 
         return res;
     };
-})(window['MakeAjaxForm']);
+})(window['MakeAjaxForm'].prototype);

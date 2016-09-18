@@ -9,24 +9,24 @@ window['MakeAjaxForm'] = function(opts)
     opts['target'] = ('' + opts['target']) || '/';
 
     if (!opts['container'] || !opts['submit']) {
-        console.error('makeAjaxForm: parameters "container" or "submit" is invalid. Plugin Off!');
+        console.error('MakeAjaxForm: parameters "container" or "submit" is invalid. Plugin Off!');
         return {};
     }
     if (typeof opts['onBeforeExchange'] !== 'function') {
         opts['onBeforeExchange'] = function() {};
     }
     if (typeof opts['onExchangeSuccess'] !== 'function') {
-        opts['onExchangeSuccess'] = function() { console.warn('makeAjaxForm: parameter "onExchangeSuccess" is not a function') };
+        opts['onExchangeSuccess'] = function() { console.warn('MakeAjaxForm: parameter "onExchangeSuccess" is not a function') };
     }
     if (typeof opts['onExchangeError'] !== 'function') {
-        opts['onExchangeError'] = function() { console.warn('makeAjaxForm: parameter "onExchangeError" is not a function') };
+        opts['onExchangeError'] = function() { console.warn('MakeAjaxForm: parameter "onExchangeError" is not a function') };
     }
     if (typeof opts['onValidationError'] !== 'function') {
-        opts['onValidationError'] = function() { console.warn('makeAjaxForm: parameter "onValidationError" is not a function') };
+        opts['onValidationError'] = function() { console.warn('MakeAjaxForm: parameter "onValidationError" is not a function') };
     }
 
     // all right, go
-    return (function (_this, _func) {
+    return (function (_this) {
         _this.container     = opts['container'];
         _this.submitElement = opts['submit'];
 
@@ -35,8 +35,8 @@ window['MakeAjaxForm'] = function(opts)
          */
         _this.submitElement.addEventListener('click', function() {
             var xhr = new XMLHttpRequest(),
-                parsedData = _func.getCollectedData(_this),
-                checkResult = _func.onBeforeExchange(parsedData, opts);
+                parsedData = _this.getCollectedData(),
+                checkResult = _this.onBeforeExchange(parsedData, opts);
 
             if (checkResult === false) return false;
 
@@ -58,7 +58,7 @@ window['MakeAjaxForm'] = function(opts)
                 }
             };
 
-            var exchangeData = _func.getExchangeData(parsedData, checkResult.formData, opts);
+            var exchangeData = _this.getExchangeData(parsedData, checkResult.formData, opts);
 
             if (exchangeData.boundary.length) {
                 xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + exchangeData.boundary);
@@ -66,5 +66,5 @@ window['MakeAjaxForm'] = function(opts)
 
             xhr.send(exchangeData.data);
         });
-    })(this, window['MakeAjaxForm']);
+    })(this);
 };

@@ -1,16 +1,11 @@
-(function (_func) {
-    /**
-     * Contains the actions for form elements types
-     */
-    _func.actions = Object.create(null);
-
+(function (_proto) {
     /**
      * creates a validation error
      * @param {Object} el
      * @param {string} type
      * @returns {Object}
      */
-    _func.actions.validationErrorItem = function(el, type) {
+    var validationErrorItem = function(el, type) {
         var res = Object.create(null);
         res.element = el;
         res.type = type;
@@ -21,10 +16,10 @@
      * creates a data item
      * @param {string} name
      * @param {string} value
-     * @param {Object} fileData
+     * @param {FileList|Array} fileData
      * @returns {Object}
      */
-    _func.actions.dataItem = function(name, value, fileData) {
+    var dataItem = function(name, value, fileData) {
         fileData = fileData || [];
 
         var res = Object.create(null);
@@ -35,33 +30,40 @@
     };
 
     /**
+     * Contains the actions for form elements types
+     */
+    _proto.actions = Object.create(null);
+
+    /**
      *
      * @param {Object} el
      * @returns {{valid: Array, data: Array}}
      */
-    _func.actions['input'] = function(el) {
+    _proto.actions['input'] = function(el) {
         var data = [], valid = [];
 
         if (!el.value) {
             if (el.hasAttribute('required')) {
-                valid.push(this.validationErrorItem(el, 'required_wo_value'));
+                valid.push(validationErrorItem(el, 'required_wo_value'));
             }
 
         } else if (el.type === 'checkbox' || el.type === 'radio') {
             if (el.checked) {
-                data.push(this.dataItem(el.name, el.value));
+                data.push(dataItem(el.name, el.value, []));
             } else if (el.hasAttribute('required')) {
-                /** TODO for type=radio: need iterate all inputs with some name and check at least one of them has checked
-                 * here we check, if only that input checked (for example 'I accept rules' or 'I not accept')
+                /**
+                 * TODO for type=radio: need iterate all inputs with some name and check at least one of them has
+                 * checked.
+                 * Here we check, if only that input checked (for example 'I accept rules' or 'I do not accept')
                  */
-                valid.push(this.validationErrorItem(el, 'required_wo_check'));
+                valid.push(validationErrorItem(el, 'required_wo_check'));
             }
 
         } else if (el.type === 'file') {
-            data.push(this.dataItem(el.name, el.value, el.files));
+            data.push(dataItem(el.name, el.value, el.files));
 
         } else {
-            data.push(this.dataItem(el.name, el.value));
+            data.push(dataItem(el.name, el.value, []));
         }
 
         return {data: data, valid: valid}
@@ -72,19 +74,19 @@
      * @param {Object} el
      * @returns {{valid: Array, data: Array}}
      */
-    _func.actions['select'] = function(el) {
+    _proto.actions['select'] = function(el) {
         var data =[], valid = [];
 
         for (var i=0, l=el.options.length; i<l; i++) {
             var option = el.options[i];
 
             if (!option.disabled && option.selected && option.value) {
-                data.push(this.dataItem(el.name, option.value))
+                data.push(dataItem(el.name, option.value, []))
             }
         }
 
         if (el.hasAttribute('required') && !data.length) {
-            valid.push(this.validationErrorItem(el, 'required_wo_check'));
+            valid.push(validationErrorItem(el, 'required_wo_check'));
         }
 
         return {data: data, valid: valid}
@@ -95,17 +97,17 @@
      * @param {Object} el
      * @returns {{valid: Array, data: Array}}
      */
-    _func.actions['textarea'] = function(el) {
+    _proto.actions['textarea'] = function(el) {
         var data =[], valid = [];
 
         if (!el.value) {
             if (el.hasAttribute('required')) {
-                valid.push(this.validationErrorItem(el, 'required_wo_value'));
+                valid.push(validationErrorItem(el, 'required_wo_value'));
             }
         } else {
-            data.push(this.dataItem(el.name, el.value));
+            data.push(dataItem(el.name, el.value, []));
         }
 
         return {data: data, valid: valid}
     };
-})(window['MakeAjaxForm']);
+})(window['MakeAjaxForm'].prototype);

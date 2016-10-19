@@ -1,8 +1,9 @@
 /**
- * version 3.2
+ * @file MakeAJAXForm
+ * @version 3.3
  *
- * Author: Lvovich
- * open-source: https://github.com/Lvovich/MakeAjaxForm
+ * @author Lvovich
+ * @see {@link https://github.com/Lvovich/MakeAjaxForm|GitHub}
  *
- * Free code.
+ * @copyright none|Free code.
  */

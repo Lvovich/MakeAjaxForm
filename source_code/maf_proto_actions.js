@@ -42,7 +42,7 @@
     _proto.actions['input'] = function(el) {
         var data = [], valid = [];
 
-        if (!el.value) {
+        if (!el.value || el.disabled) {
             if (el.hasAttribute('required')) {
                 valid.push(validationErrorItem(el, 'required_wo_value'));
             }
@@ -77,16 +77,18 @@
     _proto.actions['select'] = function(el) {
         var data =[], valid = [];
 
-        for (var i=0, l=el.options.length; i<l; i++) {
-            var option = el.options[i];
+        if (!el.disabled) {
+            for (var i=0, l=el.options.length; i<l; i++) {
+                var option = el.options[i];
 
-            if (!option.disabled && option.selected && option.value) {
-                data.push(dataItem(el.name, option.value, []))
+                if (!option.disabled && option.selected && option.value) {
+                    data.push(dataItem(el.name, option.value, []))
+                }
             }
-        }
 
-        if (el.hasAttribute('required') && !data.length) {
-            valid.push(validationErrorItem(el, 'required_wo_check'));
+            if (el.hasAttribute('required') && !data.length) {
+                valid.push(validationErrorItem(el, 'required_wo_check'));
+            }
         }
 
         return {data: data, valid: valid}
@@ -100,7 +102,7 @@
     _proto.actions['textarea'] = function(el) {
         var data =[], valid = [];
 
-        if (!el.value) {
+        if (!el.value || el.disabled) {
             if (el.hasAttribute('required')) {
                 valid.push(validationErrorItem(el, 'required_wo_value'));
             }

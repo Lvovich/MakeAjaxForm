@@ -49,6 +49,6 @@ gulp.task('dev', function () {
             'source_code/maf_proto_onBeforeExchange.js',
             'source_code/maf_proto_getExchangeData.js'
         ])
-        .pipe(concat('maf.js'))
+        .pipe(concat('maf.min.js'))
         .pipe(gulp.dest('release/'))
 });

@@ -22,7 +22,7 @@
     </label>
     <br/><br/>
     <label>select name="age[]" multiple<br/>
-        <select name="age[]" multiple>
+        <select name="age[]" multiple disabled="disabled">
             <option value="0" selected></option>
             <option value="10">10 let</option>
             <option value="20">20 let</option>

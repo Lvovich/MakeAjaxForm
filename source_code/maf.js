@@ -12,17 +12,20 @@ window['MakeAjaxForm'] = function(opts)
         console.error('MakeAjaxForm: parameters "container" or "submit" is invalid. Plugin Off!');
         return {};
     }
-    if (typeof opts['onBeforeExchange'] !== 'function') {
-        opts['onBeforeExchange'] = function() {};
-    }
-    if (typeof opts['onExchangeSuccess'] !== 'function') {
-        opts['onExchangeSuccess'] = function() { console.warn('MakeAjaxForm: parameter "onExchangeSuccess" is not a function') };
-    }
-    if (typeof opts['onExchangeError'] !== 'function') {
-        opts['onExchangeError'] = function() { console.warn('MakeAjaxForm: parameter "onExchangeError" is not a function') };
+    if (typeof opts['onDataCollected'] !== 'function') {
+        opts['onDataCollected'] = function() {};
     }
     if (typeof opts['onValidationError'] !== 'function') {
-        opts['onValidationError'] = function() { console.warn('MakeAjaxForm: parameter "onValidationError" is not a function') };
+        opts['onValidationError'] = function() {};
+    }
+    if (typeof opts['onStartExchange'] !== 'function') {
+        opts['onStartExchange'] = function() {};
+    }
+    if (typeof opts['onExchangeError'] !== 'function') {
+        opts['onExchangeError'] = function() {};
+    }
+    if (typeof opts['onExchangeSuccess'] !== 'function') {
+        opts['onExchangeSuccess'] = function() {};
     }
 
     // all right, go

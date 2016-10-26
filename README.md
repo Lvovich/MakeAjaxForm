@@ -31,11 +31,11 @@ Requirements:
 -------------
 any web-browser with javascript support
 
-Supports user-defined functions:
+Supports triggers:
 --------------------------------
-- onBeforeExchange(collectedDataObject) - if return 'false', exchange will break before send.<br/>
-- onValidationError(errorObject) - return elements that fail validation,<br>
-  and two types of errors: 'required_wo_value' || 'required_wo_check'.<br/>
-- onExchangeError(responseStatusText) - return server's error description after exchange.<br/>
-- onExchangeSuccess(serverResponseText) - return server response after exchange.<br/>
+- onDataCollected(dataObject) - provides collected dataObject of data & validation errors. If return 'false', exchange process breaks.
+- onValidationError(errorObject) - provides elements that fail validation, and two types of errors: 'required_wo_value' || 'required_wo_check'.
+- onStartExchange() - before send data, after successful validation. If return 'false', data will not been sent.
+- onExchangeError(responseStatusText) - provides server's error description after exchange. Or 'no_valid_data' if collected dataObject is empty.
+- onExchangeSuccess(serverResponseText) - provides server response after exchange.
 

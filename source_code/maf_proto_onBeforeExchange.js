@@ -9,7 +9,7 @@
     {
         var res = Object.create(null);
 
-        if (opts['onBeforeExchange'](parsedData) === false) {
+        if (opts['onDataCollected'](parsedData) === false) {
             return false;
         }
 
@@ -17,6 +17,10 @@
             parsedData['validationErrors'].forEach(function(err) {
                 opts['onValidationError'](err);
             });
+            return false;
+        }
+
+        if (opts['onStartExchange']() === false) {
             return false;
         }
 

@@ -55,7 +55,7 @@
             submit: submit,
             target: 'sample/ajax_handler.php',
 
-            onBeforeExchange: function(collectedData) {
+            onDataCollected: function(collectedData) {
                 var block = document.querySelector('.result-view') || document.createElement('div');
 
                 block.innerHTML = 'Response result here...';
@@ -77,6 +77,15 @@
 
                 error.element.style.boxShadow = '0 0 10px 0 red';
                 error.element.addEventListener('click', clickHandler);
+            },
+
+            onStartExchange: function () {
+                if (true) {
+                    alert('Now we start data send!');
+                    return true;
+                } else {
+                    return false;
+                }
             },
 
             onExchangeSuccess: function(response) {

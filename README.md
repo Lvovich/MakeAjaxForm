@@ -5,9 +5,9 @@ JS-plugin to ajax exchange.
 Need create any html block (container) instead of 'form', create any usual input elements and submit element (sender) inside it,
 specify these container & sender to plugin, and it can exchange data with server, by ajax.
 
-Used clear Javascript, unrequire JQuery or another plugins.
+Used clean Javascript, unrequire JQuery or another plugins.
 
-Due to the absence of the tag 'form' on page, MakeAjaxForm excludes spam-attack, because spam-bots can't find form target
+Due to absence of tag 'form' at page, MakeAjaxForm excludes spam-attack, because spam-bots can't find form target
 and data structure.
 
 Supports next input types:

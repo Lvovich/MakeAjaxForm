@@ -12,8 +12,8 @@
 
         if (formData) {
             parsedData.data.forEach(function(item) {
-                var dataItem = (item.fileData.length) ? item.fileData[0] : item.value;
-                formData.append(item.name, dataItem);
+                var dataItem = (item['fileData'].length) ? item['fileData'][0] : item['element'].value;
+                formData.append(item['element'].name, dataItem);
             });
 
             res.boundary = '';
@@ -26,10 +26,14 @@
                 body = ['\r\n'];
 
             parsedData.data.forEach(function(item) {
-                if (item.fileData.length) {
+                if (item['fileData'].length) {
                     opts['onExchangeError']('file_exchange_disabled');
                 } else {
-                    body.push('Content-Disposition: form-data; name="' + item.name + '"\r\n\r\n' + item.value + '\r\n');
+                    body.push(
+                        'Content-Disposition: form-data; name="' + item['element'].name +
+                        '"\r\n\r\n' + item['element'].value +
+                        '\r\n'
+                    );
                 }
             });
 

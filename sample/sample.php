@@ -56,6 +56,7 @@
             target: 'sample/ajax_handler.php',
 
             onDataCollected: function(collectedData) {
+                console.log(collectedData);
                 var block = document.querySelector('.result-view') || document.createElement('div');
 
                 block.innerHTML = 'Response result here...';

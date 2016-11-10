@@ -7,25 +7,20 @@
      */
     var validationErrorItem = function(el, type) {
         var res = Object.create(null);
-        res.element = el;
-        res.type = type;
+        res['element'] = el;
+        res['type']    = type;
         return res;
     };
 
     /**
      * creates a data item
-     * @param {string} name
-     * @param {string} value
-     * @param {FileList|Array} fileData
+     * @param {Object} el
      * @returns {Object}
      */
-    var dataItem = function(name, value, fileData) {
-        fileData = fileData || [];
-
+    var dataItem = function(el) {
         var res = Object.create(null);
-        res.name = name;
-        res.value = value;
-        res.fileData = fileData;
+        res['element']  = el;
+        res['fileData'] = el.files || [];
         return res;
     };
 
@@ -47,16 +42,16 @@
 
         } else if (el.type === 'checkbox' || el.type === 'radio') {
             if (el.checked) {
-                data.push(dataItem(el.name, el.value, []));
+                data.push(dataItem(el));
             } else if (el.hasAttribute('required')) {
                 valid.push(validationErrorItem(el, 'required_wo_check'));
             }
 
         } else if (el.type === 'file') {
-            data.push(dataItem(el.name, el.value, el.files));
+            data.push(dataItem(el));
 
         } else {
-            data.push(dataItem(el.name, el.value, []));
+            data.push(dataItem(el));
         }
 
         return {data: data, valid: valid}
@@ -75,7 +70,7 @@
                 var option = el.options[i];
 
                 if (!option.disabled && option.selected && option.value) {
-                    data.push(dataItem(el.name, option.value, []))
+                    data.push(dataItem(el))
                 }
             }
 
@@ -98,7 +93,7 @@
         if (el.hasAttribute('required') && (!el.value || el.disabled)) {
             valid.push(validationErrorItem(el, 'required_wo_value'));
         } else {
-            data.push(dataItem(el.name, el.value, []));
+            data.push(dataItem(el));
         }
 
         return {data: data, valid: valid}

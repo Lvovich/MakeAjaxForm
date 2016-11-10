@@ -42,20 +42,13 @@
     _proto.actions['input'] = function(el) {
         var data = [], valid = [];
 
-        if (!el.value || el.disabled) {
-            if (el.hasAttribute('required')) {
-                valid.push(validationErrorItem(el, 'required_wo_value'));
-            }
+        if (el.hasAttribute('required') && (!el.value || el.disabled)) {
+            valid.push(validationErrorItem(el, 'required_wo_value'));
 
         } else if (el.type === 'checkbox' || el.type === 'radio') {
             if (el.checked) {
                 data.push(dataItem(el.name, el.value, []));
             } else if (el.hasAttribute('required')) {
-                /**
-                 * TODO for type=radio: need iterate all inputs with some name and check at least one of them has
-                 * checked.
-                 * Here we check, if only that input checked (for example 'I accept rules' or 'I do not accept')
-                 */
                 valid.push(validationErrorItem(el, 'required_wo_check'));
             }
 
@@ -102,10 +95,8 @@
     _proto.actions['textarea'] = function(el) {
         var data =[], valid = [];
 
-        if (!el.value || el.disabled) {
-            if (el.hasAttribute('required')) {
-                valid.push(validationErrorItem(el, 'required_wo_value'));
-            }
+        if (el.hasAttribute('required') && (!el.value || el.disabled)) {
+            valid.push(validationErrorItem(el, 'required_wo_value'));
         } else {
             data.push(dataItem(el.name, el.value, []));
         }

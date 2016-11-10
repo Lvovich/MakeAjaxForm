@@ -79,14 +79,7 @@
                 error.element.addEventListener('click', clickHandler);
             },
 
-            onStartExchange: function () {
-                if (true) {
-                    alert('Now we start data send!');
-                    return true;
-                } else {
-                    return false;
-                }
-            },
+            onStartExchange: function () {},
 
             onExchangeSuccess: function(response) {
                 var block = document.querySelector('.result-view') || document.createElement('div');

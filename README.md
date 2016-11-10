@@ -22,7 +22,7 @@ Sample with many input types can be found in 'sample/sample.php' file. To see it
 
 Features:
 ---------
-- If some input element has not 'name' or 'value' attribute (or 'value' is empty), it will not sended to a server. Without warnings!
+- If some input element has not 'name' or 'value' attribute it will not been send to a server. Without warnings!
 - File upload works in IE10+ and other modern browsers (need support FormData). Otherwise, plugin sends everything except the files.
 - Method of exchange always 'post', encoding always 'multipart/form-data'.
 - At the moment, only one file can be choosed ('multiple' not supported).

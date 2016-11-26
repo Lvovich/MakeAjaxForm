@@ -31,7 +31,7 @@ Requirements:
 -------------
 any web-browser with javascript support
 
-Supports triggers:
+Support triggers:
 --------------------------------
 - onDataCollected(dataObject) - provides collected dataObject of data & validation errors. If return 'false', exchange process breaks.
 - onValidationError(errorObject) - provides elements that fail validation, and two types of errors: 'required_wo_value' || 'required_wo_check'.

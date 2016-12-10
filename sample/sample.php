@@ -54,6 +54,7 @@
             container: container,
             submit: submit,
             target: 'sample/ajax_handler.php',
+            waitingtime: 50,
 
             onDataCollected: function(collectedData) {
                 console.log(collectedData);

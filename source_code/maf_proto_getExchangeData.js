@@ -8,13 +8,16 @@
      */
     _proto.getExchangeData = function(parsedData, formData, opts)
     {
-        var res = {};
+        var res = {},
+            i, L, item, dataItem;
 
         if (formData) {
-            parsedData.data.forEach(function(item) {
-                var dataItem = (item['fileData'].length) ? item['fileData'][0] : item['element'].value;
+            for (i=0, L=parsedData.data.length; i<L; i++) {
+                item = parsedData.data[i];
+
+                dataItem = (item['fileData'].length) ? item['fileData'][0] : item['element'].value;
                 formData.append(item['element'].name, dataItem);
-            });
+            }
 
             res.boundary = '';
             res.data = formData;
@@ -25,7 +28,9 @@
                 boundaryLast = '--' + boundary + '--\r\n',
                 body = ['\r\n'];
 
-            parsedData.data.forEach(function(item) {
+            for (i=0, L=parsedData.data.length; i<L; i++) {
+                item = parsedData.data[i];
+
                 if (item['fileData'].length) {
                     opts['onExchangeError']('file_exchange_disabled');
                 } else {
@@ -35,7 +40,7 @@
                         '\r\n'
                     );
                 }
-            });
+            }
 
             res.boundary = boundary;
             res.data = body.join(boundaryMiddle) + boundaryLast;

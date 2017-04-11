@@ -7,25 +7,26 @@
         var arrData = [],
             validationErrors = [];
 
-        var INPUT_TYPES = ['input', 'select', 'textarea'];
+        var INPUT_TYPES = ['input', 'select', 'textarea'],
+            t, L, i, l, type, element, elementResult;
 
         (function ($CONT) {
-            INPUT_TYPES.forEach(function(type) {
-                if (!(type in $CONT.actions)) return;
+            for (t=0, L=INPUT_TYPES.length; t<L; t++) {
+                type = INPUT_TYPES[t];
 
                 var dataSet = $CONT.container.querySelectorAll(type);
 
-                for (var i=0, l=dataSet.length; i<l; i++) {
-                    var element = dataSet[i];
+                for (i=0, l=dataSet.length; i<l; i++) {
+                    element = dataSet[i];
 
                     if (element !== $CONT.submitElement && element.name) {
-                        var elementResult = $CONT.actions[type](element);
+                        elementResult = $CONT.actions[type](element);
 
                         arrData = arrData.concat(elementResult.data);
                         validationErrors = validationErrors.concat(elementResult.valid);
                     }
                 }
-            });
+            }
         })(this);
 
         return {'data': arrData, 'validationErrors': validationErrors};

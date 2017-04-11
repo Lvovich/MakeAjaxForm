@@ -49,47 +49,35 @@
     var container = document.querySelector('.my-form');
     var submit    = document.querySelector('.sender');
 
-    window.addEventListener('load', function() {
-        new MakeAjaxForm({
-            container: container,
-            submit: submit,
-            target: 'sample/ajax_handler.php',
-            waitingtime: 50,
+    new MakeAjaxForm({
+        container: container,
+        submit: submit,
+        target: 'sample/ajax_handler.php',
+        waitingtime: 50,
 
-            onDataCollected: function(collectedData) {
-                console.log(collectedData);
-                var block = document.querySelector('.result-view') || document.createElement('div');
+        onDataCollected: function(collectedData) {
+            console.log(collectedData);
+            var block = document.querySelector('.result-view') || document.createElement('div');
 
-                block.innerHTML = 'Response result here...';
-            },
+            block.innerHTML = 'Response result here...';
+        },
 
-            onValidationError: function(error) {
-                var block = document.querySelector('.result-view') || document.createElement('div');
+        onValidationError: function(error) {
+            var block = document.querySelector('.result-view') || document.createElement('div');
 
-                block.innerHTML = 'Some input\'s fail validation...';
+            block.innerHTML = 'Some input\'s fail validation...';
 
-                if (error.element.origStyle === undefined) {
-                    error.element.origStyle = error.element.style.boxShadow;
-                }
+            error.element.style.boxShadow = '0 0 10px 0 red';
+        },
 
-                var clickHandler = function() {
-                    error.element.style.boxShadow = '' + error.element.origStyle;
-                    error.element.removeEventListener('click', clickHandler);
-                };
+        onStartExchange: function () {},
 
-                error.element.style.boxShadow = '0 0 10px 0 red';
-                error.element.addEventListener('click', clickHandler);
-            },
+        onExchangeSuccess: function(response) {
+            var block = document.querySelector('.result-view') || document.createElement('div');
 
-            onStartExchange: function () {},
+            block.innerHTML = response;
+        },
 
-            onExchangeSuccess: function(response) {
-                var block = document.querySelector('.result-view') || document.createElement('div');
-
-                block.innerHTML = response;
-            },
-
-            onExchangeError: function(statusText) {console.dir(statusText);}
-        });
+        onExchangeError: function(statusText) {console.dir(statusText);}
     });
 </script>

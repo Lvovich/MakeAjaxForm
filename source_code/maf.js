@@ -69,15 +69,11 @@ window['MakeAjaxForm'] = function(opts)
         };
 
         // IE8 compatibility
-        var eventHandler = _this.submitElement.attachEvent;
-
         if (_this.submitElement.addEventListener) {
-            eventHandler = _this.submitElement.addEventListener;
+            _this.submitElement.addEventListener('click', submitHandler);
         }
-        else if (!eventHandler) {
-            return;
+        else if (_this.submitElement.attachEvent) {
+            _this.submitElement.attachEvent('onclick', submitHandler);
         }
-
-        eventHandler.call(_this.submitElement, 'click', submitHandler);
     })(this);
 };

@@ -7,16 +7,17 @@
      */
     _proto.onBeforeExchange = function(parsedData, opts)
     {
-        var res = {};
+        var res = {},
+            i, L;
 
         if (opts['onDataCollected'](parsedData) === false) {
             return false;
         }
 
         if (parsedData['validationErrors'].length > 0) {
-            parsedData['validationErrors'].forEach(function(err) {
-                opts['onValidationError'](err);
-            });
+            for (i=0, L=parsedData['validationErrors'].length; i<L; i++) {
+                opts['onValidationError'](parsedData['validationErrors'][i]);
+            }
             return false;
         }
 

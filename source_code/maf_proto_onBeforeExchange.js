@@ -7,7 +7,7 @@
      */
     _proto.onBeforeExchange = function(parsedData, opts)
     {
-        var res = Object.create(null);
+        var res = {};
 
         if (opts['onDataCollected'](parsedData) === false) {
             return false;

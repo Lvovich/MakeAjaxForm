@@ -34,10 +34,7 @@ window['MakeAjaxForm'] = function(opts)
         _this.container     = opts['container'];
         _this.submitElement = opts['submit'];
 
-        /**
-         * main cotrol function
-         */
-        _this.submitElement.addEventListener('click', function() {
+        var submitHandler = function () {
             var xhr = new XMLHttpRequest(),
                 parsedData = _this.getCollectedData(),
                 checkResult = _this.onBeforeExchange(parsedData, opts);
@@ -52,10 +49,10 @@ window['MakeAjaxForm'] = function(opts)
             xhr.open('post', opts['target'], true);
 
             xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
+                if (xhr.readyState === 4) {
                     clearTimeout(ajaxTimeout);
 
-                    if (xhr.status == 200)
+                    if (xhr.status === 200)
                         opts['onExchangeSuccess'](xhr.responseText);
                     else
                         opts['onExchangeError'](xhr.status + ': ' + xhr.statusText);
@@ -69,6 +66,18 @@ window['MakeAjaxForm'] = function(opts)
             }
 
             xhr.send(exchangeData.data);
-        });
+        };
+
+        // IE8 compatibility
+        var eventHandler = _this.submitElement.attachEvent;
+
+        if (_this.submitElement.addEventListener) {
+            eventHandler = _this.submitElement.addEventListener;
+        }
+        else if (!eventHandler) {
+            return;
+        }
+
+        eventHandler.call(_this.submitElement, 'click', submitHandler);
     })(this);
 };

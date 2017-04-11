@@ -6,10 +6,10 @@
      * @returns {Object}
      */
     var validationErrorItem = function(el, type) {
-        var res = Object.create(null);
-        res['element'] = el;
-        res['type']    = type;
-        return res;
+        return {
+            'element' : el,
+            'type'    : type
+        };
     };
 
     /**
@@ -18,16 +18,16 @@
      * @returns {Object}
      */
     var dataItem = function(el) {
-        var res = Object.create(null);
-        res['element']  = el;
-        res['fileData'] = el.files || [];
-        return res;
+        return {
+            'element'  : el,
+            'fileData' : el.files || []
+        };
     };
 
     /**
      * Contains the actions for form elements types
      */
-    _proto.actions = Object.create(null);
+    _proto.actions = {};
 
     /**
      *

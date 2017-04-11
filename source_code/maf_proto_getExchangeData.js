@@ -8,7 +8,7 @@
      */
     _proto.getExchangeData = function(parsedData, formData, opts)
     {
-        var res = Object.create(null);
+        var res = {};
 
         if (formData) {
             parsedData.data.forEach(function(item) {

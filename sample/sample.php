@@ -44,7 +44,7 @@
     Response result here...
 </div>
 
-<script src="release/maf.min.js"></script>
+<script src="/release/maf.min.js"></script>
 <script>
     var container = document.querySelector('.my-form');
     var submit    = document.querySelector('.sender');
@@ -62,12 +62,13 @@
             block.innerHTML = 'Response result here...';
         },
 
-        onValidationError: function(error) {
+        onValidationError: function(errors) {
             var block = document.querySelector('.result-view') || document.createElement('div');
-
             block.innerHTML = 'Some input\'s fail validation...';
 
-            error.element.style.boxShadow = '0 0 10px 0 red';
+            for (var i=0, L=errors.length; i<L; i++) {
+                errors[i].element.style.boxShadow = '0 0 10px 0 red';
+            }
         },
 
         onStartExchange: function () {},

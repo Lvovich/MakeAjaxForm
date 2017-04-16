@@ -36,10 +36,11 @@ window['MakeAjaxForm'] = function(opts)
 
         var submitHandler = function () {
             var xhr = new XMLHttpRequest(),
-                parsedData = _this.getCollectedData(),
-                checkResult = _this.onBeforeExchange(parsedData, opts);
+                parsedData = _this.getCollectedData();
 
-            if (checkResult === false) return false;
+            if (!_this.onBeforeExchange(parsedData, opts)) {
+                return false;
+            }
 
             var ajaxTimeout = setTimeout(function() {
                 xhr.abort();
@@ -59,7 +60,7 @@ window['MakeAjaxForm'] = function(opts)
                 }
             };
 
-            var exchangeData = _this.getExchangeData(parsedData, checkResult.formData, opts);
+            var exchangeData = _this.getExchangeData(parsedData, opts);
 
             if (exchangeData.boundary.length) {
                 xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + exchangeData.boundary);

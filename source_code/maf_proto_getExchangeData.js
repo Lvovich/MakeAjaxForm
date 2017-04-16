@@ -2,25 +2,25 @@
     /**
      * Creates request body, depending on FormData is available in window
      * @param {Object} parsedData
-     * @param {Object} formData
      * @param {Object} opts
      * @returns {Object}
      */
-    _proto.getExchangeData = function(parsedData, formData, opts)
+    _proto.getExchangeData = function(parsedData, opts)
     {
         var res = {},
+            fd = (window.FormData ? new window.FormData : false),
             i, L, item, dataItem;
 
-        if (formData) {
+        if (fd) {
             for (i=0, L=parsedData.data.length; i<L; i++) {
                 item = parsedData.data[i];
 
                 dataItem = (item['fileData'].length) ? item['fileData'][0] : item['element'].value;
-                formData.append(item['element'].name, dataItem);
+                fd.append(item['element'].name, dataItem);
             }
 
             res.boundary = '';
-            res.data = formData;
+            res.data = fd;
 
         } else {
             var boundary = 'maf' + ('' + Math.random()).slice(2, 18),

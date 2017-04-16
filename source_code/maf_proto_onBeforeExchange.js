@@ -3,21 +3,17 @@
      * Check some errors. Return data object or false
      * @param {Object} parsedData
      * @param {Object} opts
-     * @returns {boolean|Object}
+     *
+     * @return {boolean|Object}
      */
     _proto.onBeforeExchange = function(parsedData, opts)
     {
-        var res = {},
-            i, L;
-
         if (opts['onDataCollected'](parsedData) === false) {
             return false;
         }
 
         if (parsedData['validationErrors'].length > 0) {
-            for (i=0, L=parsedData['validationErrors'].length; i<L; i++) {
-                opts['onValidationError'](parsedData['validationErrors'][i]);
-            }
+            opts['onValidationError'](parsedData['validationErrors']);
             return false;
         }
 
@@ -30,8 +26,6 @@
             return false;
         }
 
-        res.formData = (window.FormData) ? new FormData() : false;
-
-        return res;
+        return true;
     };
 })(window['MakeAjaxForm'].prototype);

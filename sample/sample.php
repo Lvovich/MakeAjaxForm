@@ -54,6 +54,7 @@
         submit: submit,
         target: 'sample/ajax_handler.php',
         waitingtime: 50,
+        stopOnInvalid: true,
 
         onDataCollected: function(collectedData) {
             console.log(collectedData);

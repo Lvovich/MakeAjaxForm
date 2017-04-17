@@ -6,8 +6,9 @@ window['MakeAjaxForm'] = function(opts)
     }
 
     // Prepare params
-    opts['target'] = ('' + opts['target']) || '/';
-    opts['waitingtime'] = !!(+opts['waitingtime']) ? +opts['waitingtime'] : 3600;
+    opts['target']        = ('' + opts['target']) || '/';
+    opts['waitingtime']   = !!(+opts['waitingtime']) ? +opts['waitingtime'] : 3600;
+    opts['stopOnInvalid'] = opts['stopOnInvalid'] !== undefined ? !!opts['stopOnInvalid'] : true;
 
     if (!opts['container'] || !opts['submit']) {
         console.error('MakeAjaxForm: parameters "container" or "submit" is invalid. Plugin Off!');
@@ -44,7 +45,7 @@ window['MakeAjaxForm'] = function(opts)
 
             var ajaxTimeout = setTimeout(function() {
                 xhr.abort();
-                opts['onExchangeError']('No server response for a long times. Exchange aborted. Try to reload the page.');
+                opts['onExchangeError']('No server response for a long times. Exchange aborted.');
             }, opts['waitingtime'] * 1000);
 
             xhr.open('post', opts['target'], true);

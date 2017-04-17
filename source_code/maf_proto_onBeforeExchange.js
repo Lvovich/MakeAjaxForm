@@ -12,7 +12,7 @@
             return false;
         }
 
-        if (parsedData['validationErrors'].length > 0) {
+        if (parsedData['validationErrors'].length > 0 && opts['stopOnInvalid']) {
             opts['onValidationError'](parsedData['validationErrors']);
             return false;
         }

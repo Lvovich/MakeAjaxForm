@@ -46,20 +46,22 @@
 
 <script src="/release/maf.min.js"></script>
 <script>
-    var container = document.querySelector('.my-form');
-    var submit    = document.querySelector('.sender');
-
-    new MakeAjaxForm({
-        container: container,
-        submit: submit,
-        target: 'sample/ajax_handler.php',
-        waitingtime: 50,
-        stopOnInvalid: true,
+    makeAjaxForm({
+        container : document.querySelector('.my-form'),
+        submit    : document.querySelector('.sender'),
+        target        : 'sample/ajax_handler.php',
+        waitingtime   : 50,
+        stopOnInvalid : true,
 
         onDataCollected: function(collectedData) {
             console.log(collectedData);
-            var block = document.querySelector('.result-view') || document.createElement('div');
 
+            if (collectedData.data.length) {
+                for (var i=0; i<collectedData.data.length; i++) {
+                    collectedData.data[i].element.style.boxShadow = '';
+                }
+            }
+            var block = document.querySelector('.result-view') || document.createElement('div');
             block.innerHTML = 'Response result here...';
         },
 
@@ -68,7 +70,12 @@
             block.innerHTML = 'Some input\'s fail validation...';
 
             for (var i=0, L=errors.length; i<L; i++) {
-                errors[i].element.style.boxShadow = '0 0 10px 0 red';
+                if (errors[i].element) {
+                    errors[i].element.style.boxShadow = '0 0 10px 0 red';
+                }
+                else {
+                    block.innerHTML = errors[i];
+                }
             }
         },
 

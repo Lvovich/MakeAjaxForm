@@ -1,4 +1,4 @@
-MakeAjaxForm
+makeAjaxForm
 ============
 JS-plugin to ajax exchange.
 
@@ -7,7 +7,7 @@ specify these container & sender to plugin, and it can exchange data with server
 
 Used clean Javascript, unrequire JQuery or another plugins.
 
-Due to absence of tag 'form' at page, MakeAjaxForm excludes spam-attack, because spam-bots can't find form target
+Due to absence of tag 'form' at page, makeAjaxForm excludes spam-attack, because spam-bots can't find form target
 and data structure.
 
 Supports next input types:
@@ -33,9 +33,11 @@ any web-browser with javascript support
 
 Support triggers:
 --------------------------------
-- onDataCollected(dataObject) - provides collected dataObject of data & validation errors. If return 'false', exchange process breaks.
-- onValidationError(errorObject) - provides elements that fail validation, and two types of errors: 'required_wo_value' || 'required_wo_check'.
-- onStartExchange() - before send data, after successful validation. If return 'false', data will not been sent.
-- onExchangeError(responseStatusText) - provides server's error description after exchange. Or 'no_valid_data' if collected dataObject is empty.
-- onExchangeSuccess(serverResponseText) - provides server response after exchange.
+- onDataCollected(dataObject) - provides collected dataObject of data & validation errors. If returns 'false', exchange
+
+- onValidationError(errorObject) - provides elements that fail validation, with two types of errors: 'required_wo_value'
+  || 'required_wo_check'. Also returns string 'no_valid_data' if no data collected.
+- onStartExchange() - before send data, after succeed validation. If returns 'false', data will not be sent.
+- onExchangeError(responseStatusText) - provides server's error description on exchange fail.
+- onExchangeSuccess(serverResponseText) - provides server response on succeed exchange.
 

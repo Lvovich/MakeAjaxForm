@@ -2,7 +2,7 @@
   "name": "website",
   "version": "1.0.0",
   "description": "website",
-  "repository": "https://github.com/Lvovich/MakeAjaxForm",
+  "repository": "https://github.com/Lvovich/makeAjaxForm",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,6 +14,6 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.1",
-    "gulp-sequence": "^0.4.5"
+    "gulp-sequence": "^0.4.6"
   }
 }

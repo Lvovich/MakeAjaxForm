@@ -3,15 +3,15 @@
         <input type="checkbox" name="aaa" value="a1" title="" required />
     </label>
     <br/><br/>
-    <label>input type="radio" name="bbb[]" value="b1" title=""<br/>
-        <input type="radio" name="bbb[]" value="b1" title="" />
+    <label>input type="radio" name="bbb" value="b1" title=""<br/>
+        <input type="radio" name="bbb" value="b1" title="" />
     </label><br/>
-    <label>input type="radio" name="bbb[]" value="b2" title=""<br/>
-        <input type="radio" name="bbb[]" value="b2" title="" />
+    <label>input type="radio" name="bbb" value="b2" title=""<br/>
+        <input type="radio" name="bbb" value="b2" title="" />
     </label>
     <br/><br/>
-    <label>input type="text" name="t[]" value="" onclick="alert('weffs');" style="box-shadow: 0 0 100px 0 green;" title="" <span style="color:red;">required</span><br/>
-        <input type="text" name="t[]" value="" onclick="alert('weffs');" style="box-shadow: 0 0 100px 0 green;" title="" required />
+    <label>input type="text" name="t[]" value="" title="" <span style="color:red;">required</span><br/>
+        <input type="text" name="t[]" value="" title="" required />
     </label><br/>
     <label>input type="text" name="t[]" value="" title=""<br/>
         <input type="text" name="t[]" value="" title="" />
@@ -22,7 +22,7 @@
     </label>
     <br/><br/>
     <label>select name="age[]" multiple<br/>
-        <select name="age[]" multiple disabled="disabled">
+        <select name="age[]" multiple>
             <option value="0" selected></option>
             <option value="10">10 let</option>
             <option value="20">20 let</option>
@@ -54,29 +54,10 @@
         stopOnInvalid : true,
 
         onDataCollected: function(collectedData) {
-            console.log(collectedData);
+            console.dir(collectedData);
 
-            if (collectedData.data.length) {
-                for (var i=0; i<collectedData.data.length; i++) {
-                    collectedData.data[i].element.style.boxShadow = '';
-                }
-            }
             var block = document.querySelector('.result-view') || document.createElement('div');
             block.innerHTML = 'Response result here...';
-        },
-
-        onValidationError: function(errors) {
-            var block = document.querySelector('.result-view') || document.createElement('div');
-            block.innerHTML = 'Some input\'s fail validation...';
-
-            for (var i=0, L=errors.length; i<L; i++) {
-                if (errors[i].element) {
-                    errors[i].element.style.boxShadow = '0 0 10px 0 red';
-                }
-                else {
-                    block.innerHTML = errors[i];
-                }
-            }
         },
 
         onStartExchange: function () {},

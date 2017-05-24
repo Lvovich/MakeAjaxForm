@@ -16,23 +16,20 @@ window['makeAjaxForm'] = function(opts)
             submit    : opts['submit'],
             target        : ('' + opts['target']) || '/',
             waitingtime   : !!(+opts['waitingtime']) ? +opts['waitingtime'] : 3600,
-            stopOnInvalid : opts['stopOnInvalid'] !== undefined ? !!opts['stopOnInvalid'] : true,
+
             'onDataCollected'   : function() {},
-            'onValidationError' : function() {},
             'onStartExchange'   : function() {},
             'onExchangeError'   : function() {},
             'onExchangeSuccess' : function() {}
         },
         { // b
             'onDataCollected'   : opts['onDataCollected'],
-            'onValidationError' : opts['onValidationError'],
             'onStartExchange'   : opts['onStartExchange'],
             'onExchangeError'   : opts['onExchangeError'],
             'onExchangeSuccess' : opts['onExchangeSuccess']
         },
         { // types
             'onDataCollected'   : 'function',
-            'onValidationError' : 'function',
             'onStartExchange'   : 'function',
             'onExchangeError'   : 'function',
             'onExchangeSuccess' : 'function'

@@ -2,8 +2,8 @@
     /**
      * Check some errors.
      *
-     * @param {{data: Array, validationErrors: Array}} collectedData - собранные данные из инпутов контейнера.
-     * @param {Object}                                 opts          - параметры вызова основной функции.
+     * @param {Array}  collectedData - собранные данные из инпутов контейнера.
+     * @param {Object} opts          - параметры вызова основной функции.
      *
      * @return {boolean}
      */
@@ -13,17 +13,12 @@
             return false;
         }
 
-        if (collectedData['validationErrors'].length > 0 && opts.stopOnInvalid) {
-            opts['onValidationError'](collectedData['validationErrors']);
-            return false;
-        }
-
         if (opts['onStartExchange']() === false) {
             return false;
         }
 
-        if (collectedData.data.length === 0) {
-            opts['onValidationError'](['no_valid_data']);
+        if (collectedData.length === 0) {
+            opts['onExchangeError'](['Collected no valid data.']);
             return false;
         }
 

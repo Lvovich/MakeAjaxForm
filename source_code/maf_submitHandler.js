@@ -30,7 +30,7 @@
             }
         };
 
-        var exchangeData = _this.getExchangeData(collectedData, opts);
+        var exchangeData = _this.getExchangeData(collectedData);
 
         if (exchangeData.boundary.length) {
             xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + exchangeData.boundary);

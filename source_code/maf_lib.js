@@ -31,30 +31,19 @@
     }; // -END- function obMerge()
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * Create a validation error
-     *
-     * @param {Object} el
-     * @param {string} type
-     *
-     * @return {Object}
-     */
-    _this.validationErrorItem = function(el, type) {
-        return {
-            'element' : el,
-            'type'    : type
-        };
-    };
-
-    /** ----------------------------------------------------------------------------------------------------------------
      * Create a data item
      *
-     * @param {Object} el
+     * @param {Element} el
+     * @param {string}  value
+     * @param {boolean} required
      *
-     * @return {Object}
+     * @return {{element:Element, value:string, required:boolean, fileData:Array}}
      */
-    _this.dataItem = function(el) {
+    _this.dataItem = function(el, value, required) {
         return {
             'element'  : el,
+            'value'    : value,
+            'required' : required,
             'fileData' : el.files || []
         };
     };

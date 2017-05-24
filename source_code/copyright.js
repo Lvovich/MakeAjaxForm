@@ -1,6 +1,6 @@
 /**
  * @file makeAjaxForm
- * @version 5.0
+ * @version 6.0
  *
  * @author Lvovich
  * @see {@link https://github.com/Lvovich/makeAjaxForm|GitHub}

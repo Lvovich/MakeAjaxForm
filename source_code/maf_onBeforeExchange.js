@@ -9,19 +9,11 @@
      */
     _this.onBeforeExchange = function(collectedData, opts)
     {
-        if (opts['onDataCollected'](collectedData) === false) {
-            return false;
-        }
-
-        if (opts['onStartExchange']() === false) {
-            return false;
-        }
-
         if (collectedData.length === 0) {
             opts['onExchangeError'](['Collected no valid data.']);
             return false;
         }
 
-        return true;
+        return (opts['onDataCollected'](collectedData) !== false) && (opts['onStartExchange']() !== false);
     };
 })(window['makeAjaxForm']);

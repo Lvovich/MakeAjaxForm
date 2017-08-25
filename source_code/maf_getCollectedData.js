@@ -12,10 +12,10 @@
 
         for (t=0; t<INPUT_TYPES.length; t++) {
             type   = INPUT_TYPES[t];
-            inputs = opts.container.getElementsByTagName(type);
+            inputs = opts['container'].getElementsByTagName(type);
 
             for (i=0; i<inputs.length; i++) {
-                if (inputs[i] !== opts.submit && inputs[i].name) {
+                if (inputs[i] !== opts['submit'] && inputs[i].name) {
                     arrData = arrData.concat(_this.actions[type](inputs[i]));
                 }
             }

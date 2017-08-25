@@ -10,31 +10,18 @@ window['makeAjaxForm'] = function(opts)
     var _this = window['makeAjaxForm'];
 
     // Prepare params
-    opts = _this.obMerge(
-        { // a
-            container : opts['container'],
-            submit    : opts['submit'],
-            target        : ('' + opts['target']) || '/',
-            waitingtime   : !!(+opts['waitingtime']) ? +opts['waitingtime'] : 3600,
+    opts = _this.objConcat({
+        'container'      : null,
+        'submit'         : null,
+        'target'         : '/',
+        'waitingtime'    : 3600,
+        'sendAjaxHeader' : true,
 
-            'onDataCollected'   : function() {},
-            'onStartExchange'   : function() {},
-            'onExchangeError'   : function() {},
-            'onExchangeSuccess' : function() {}
-        },
-        { // b
-            'onDataCollected'   : opts['onDataCollected'],
-            'onStartExchange'   : opts['onStartExchange'],
-            'onExchangeError'   : opts['onExchangeError'],
-            'onExchangeSuccess' : opts['onExchangeSuccess']
-        },
-        { // types
-            'onDataCollected'   : 'function',
-            'onStartExchange'   : 'function',
-            'onExchangeError'   : 'function',
-            'onExchangeSuccess' : 'function'
-        }
-    );
+        'onDataCollected'   : function() {},
+        'onStartExchange'   : function() {},
+        'onExchangeError'   : function() {},
+        'onExchangeSuccess' : function() {}
+    }, opts);
 
-    _this.setEventListener(opts.submit, 'click', {handleEvent:_this.submitHandler, opts:opts});
+    _this.setEventListener(opts['submit'], 'click', {handleEvent:_this.submitHandler, opts:opts});
 };

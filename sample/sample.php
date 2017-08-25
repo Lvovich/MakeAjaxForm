@@ -10,8 +10,8 @@
         <input type="radio" name="bbb" value="b2" title="" />
     </label>
     <br/><br/>
-    <label>input type="text" name="t[]" value="" title="" <span style="color:red;">required</span><br/>
-        <input type="text" name="t[]" value="" title="" required />
+    <label>input type="text" name="t[]" value="" title=""<br/>
+        <input type="text" name="t[]" value="" title="" />
     </label><br/>
     <label>input type="text" name="t[]" value="" title=""<br/>
         <input type="text" name="t[]" value="" title="" />
@@ -51,7 +51,7 @@
         submit    : document.querySelector('.sender'),
         target        : 'sample/ajax_handler.php',
         waitingtime   : 50,
-        stopOnInvalid : true,
+        sendAjaxHeader: true,
 
         onDataCollected: function(collectedData) {
             console.dir(collectedData);

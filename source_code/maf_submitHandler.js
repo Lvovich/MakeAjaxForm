@@ -15,9 +15,9 @@
         var ajaxTimeout = setTimeout(function() {
             xhr.abort();
             opts['onExchangeError']('No server response for a long times. Exchange aborted.');
-        }, opts.waitingtime * 1000);
+        }, opts['waitingtime'] * 1000);
 
-        xhr.open('post', opts.target, true);
+        xhr.open('post', opts['target'], true);
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
@@ -31,6 +31,10 @@
         };
 
         var exchangeData = _this.getExchangeData(collectedData);
+
+        if (opts['sendAjaxHeader']) {
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        }
 
         if (exchangeData.boundary.length) {
             xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + exchangeData.boundary);

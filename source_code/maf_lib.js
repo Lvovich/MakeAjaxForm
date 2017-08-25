@@ -3,32 +3,23 @@
  */
 (function (_this) {
     /**
-     * Объединяет два объекта в один так, что в результате есть только свойства a со значениями b
-     * (если в b есть ключ из a).
-     * Если передан список типов, проверяет соответствие значения из b этому типу.
+     * Concatenates two objects. In result are all properties of first, with values of second (if it has such keys).
      *
      * @param {!Object} a
      * @param {Object}  b
-     * @param {?Object} types
      *
      * @return {Object}
      */
-    _this.obMerge = function (a, b, types) {
-        var c = {};
+    _this.objConcat = function (a, b) {
+        var c = Object.create(null);
 
         for (var key in a) {
-            if (a.hasOwnProperty(key)) {
-                if (key in types) {
-                    c[key] = (key in b) && (typeof b[key] === types[key]) ? b[key] : a[key];
-                }
-                else {
-                    c[key] = key in b ? b[key] : a[key];
-                }
-            }
+            if (a.hasOwnProperty(key))
+                c[key] = key in b ? b[key] : a[key];
         }
 
         return c;
-    }; // -END- function obMerge()
+    }; // -END- function objConcat()
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Create a data item

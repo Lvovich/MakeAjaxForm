@@ -11,8 +11,8 @@ Due to absence of tag 'form' in page, excludes spam-attack, because bots can't f
 
 Supports next input types:
 ```
-  input type="text || radio || checkbox || password || hidden || file" (and all other that can be represented
-    by a pair 'name=value');
+  input type="text || radio || checkbox || password || hidden || file" (and all other that can be
+  represented by a pair 'name=value');
   select (& with 'multiple' attribute);
   textarea;
 ```

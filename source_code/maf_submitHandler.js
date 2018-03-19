@@ -23,10 +23,12 @@
             if (xhr.readyState === 4) {
                 clearTimeout(ajaxTimeout);
 
-                if (xhr.status === 200)
+                if (xhr.status === 200) {
                     opts['onExchangeSuccess'](xhr.responseText);
-                else
+                }
+                else if (xhr.status > 0) {
                     opts['onExchangeError'](xhr.status + ': ' + xhr.statusText);
+                }
             }
         };
 

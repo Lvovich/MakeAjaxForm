@@ -68,6 +68,8 @@
             block.innerHTML = response;
         },
 
-        onExchangeError: function(statusText) {console.dir(statusText);}
+        onExchangeError: function(statusText) {
+            console.dir(statusText);
+        }
     });
 </script>
